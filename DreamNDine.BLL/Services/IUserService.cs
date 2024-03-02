@@ -1,10 +1,14 @@
 ﻿using DreamNDine.BLL.Models;
+using DreamNDine.BLL.Services;
 
-public interface IUserService
+namespace DreamNDine.BLL.Services
 {
-    User RegisterUser(User userDetails);
-    User AuthenticateUser(string username, string password);
-    User GetUserProfile(int userId);
-    void UpdateUserProfile(int userId, User userDetails);
-    bool IsAdmin(int userId);
+    public interface IUserService
+    {
+        User RegisterUser(User userDetails);
+        User AuthenticateUser(string username, string password);
+        User GetUserProfile(int userId);
+        void UpdateUserProfile(int userId, User userDetails);
+        bool IsAdmin(int userId);
+    }
 }

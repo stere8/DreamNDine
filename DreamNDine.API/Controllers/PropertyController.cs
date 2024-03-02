@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using DreamNDine.BLL.Services;
 using DreamNDine.BLL.Models;
+using DreamNDine.BLL.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace DreamNDine.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PropertyController : ControllerBase
@@ -16,7 +14,6 @@ namespace DreamNDine.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-
         public PropertyController(IHttpContextAccessor httpContextAccessor, IHousingService housingService, IMapper mapper)
         {
             _housingService = housingService;
@@ -24,10 +21,13 @@ namespace DreamNDine.Api.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+
+
         // GET: api/Property
         [HttpGet]
         public IEnumerable<PropertyViewModel> GetAllProperties()
         {
+            Console.WriteLine("GetAllProperties");
             return _housingService.GetAllProperties()
                                   .Select(p => _mapper.Map<PropertyViewModel>(p));
         }
@@ -71,18 +71,25 @@ namespace DreamNDine.Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var propertyToUpdate = _housingService.GetPropertyById(id);
-            if (propertyToUpdate == null) return NotFound();
-
-            _mapper.Map(propertyUpdateRequest, propertyToUpdate); // Update properties 
-
-            if (propertyToUpdate.OwnerID != GetCurrentUserId())
+            // Ensure the user is authorized to update this property
+            if (GetCurrentUserId() != _housingService.GetPropertyOwner(id))
             {
                 return Unauthorized();
             }
 
-            _housingService.EditProperty(propertyToUpdate);
-            return NoContent();
+            try
+            {
+                var propertyToUpdate = _housingService.GetPropertyById(id); // Will now only be called if the user is authorized
+                if (propertyToUpdate == null) return NotFound();
+
+                _mapper.Map(propertyUpdateRequest, propertyToUpdate);
+                _housingService.EditProperty(propertyToUpdate);
+                return NoContent();
+            }
+            catch (PropertyNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         // DELETE: api/Property/5

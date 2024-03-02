@@ -7,7 +7,7 @@ using DreamNDine.BLL.Models;
 
 namespace DreamNDine.BLL.Services
 {
-    public interface IBookingServices
+    public interface IBookingService
     {
         Booking CreateBooking(Booking booking);
         Booking GetBookingById(int id);

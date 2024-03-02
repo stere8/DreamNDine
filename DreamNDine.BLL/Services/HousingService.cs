@@ -7,18 +7,18 @@ using DreamNDine.BLL.Models;
 
 namespace DreamNDine.BLL.Services
 {
-    public class HousingServices : IHousingService
+    public class HousingService : IHousingService
     {
         private readonly DbContext.DreamNDineContext _context;
 
-        public HousingServices(DbContext.DreamNDineContext context)
+        public HousingService(DbContext.DreamNDineContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<Property> GetAllProperties()
+        public IList<Property> GetAllProperties()
         {
-            return _context.Properties;
+            return _context.Properties.ToList();
         }
 
         public Property AddProperty(Property property)
@@ -33,7 +33,7 @@ namespace DreamNDine.BLL.Services
             var propertyToEdit = _context.Properties.FirstOrDefault(p => p.PropertyID == property.PropertyID);
             
             if (propertyToEdit == null) return new Property();
-            propertyToEdit.Location = property.Location;
+            propertyToEdit.City = property.City;
             propertyToEdit.Price = property.Price;
             propertyToEdit.Description = property.Description;
             _context.SaveChanges();
@@ -48,7 +48,16 @@ namespace DreamNDine.BLL.Services
 
         public List<Property> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
         {
-            return _context.Properties.Where(p => p.Location == city && p.Bookings.All(b => b.CheckOutDate < startDate || b.CheckInDate > endDate)).ToList();
+            return _context.Properties
+                .Join(_context.Bookings,  // Join with Bookings
+                    p => p.PropertyID,   // Property foreign key
+                    b => b.PropertyID,   // Booking matching key
+                    (p, b) => new { Property = p, Booking = b }) // Result selector
+                .Where(pb => pb.Property.City == city &&
+                             pb.Booking.CheckOutDate < startDate ||
+                             pb.Booking.CheckInDate > endDate)
+                .Select(pb => pb.Property) // Select the Property
+                .ToList();
         }
 
         public bool DeleteProperty(int id)
@@ -65,6 +74,21 @@ namespace DreamNDine.BLL.Services
             var property = _context.Properties.FirstOrDefault(p => p.PropertyID == propertyID);
             var totalCost = property.Price * (endDate - startDate).Days;
             return totalCost;
+        }
+
+        public int GetPropertyOwner(int id)
+        {
+            var property = _context.Properties
+                .Where(p => p.PropertyID == id)
+                .Select(p => p.OwnerID)
+                .FirstOrDefault();
+
+            if (property == 0) // Default value for int, assuming 0 isn't a valid OwnerID 
+            {
+                throw new Exception($"Property with ID {id} not found");
+            }
+
+            return property;
         }
     }
 }

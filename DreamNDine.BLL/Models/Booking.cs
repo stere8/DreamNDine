@@ -11,7 +11,6 @@ namespace DreamNDine.BLL.Models
         public Property Property { get; set; }
 
         public int GuestID { get; set; }
-        public User Guest { get; set; }
 
         [Required]
         public DateTime CheckInDate { get; set; }

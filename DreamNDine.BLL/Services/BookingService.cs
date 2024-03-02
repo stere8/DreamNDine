@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DreamNDine.BLL.Services
 {
-    public class BookingService : IBookingServices
+    public class BookingService : IBookingService
     {
         private readonly DreamNDineContext _context;
 
@@ -57,17 +57,17 @@ namespace DreamNDine.BLL.Services
 
         public bool IsPropertyAvailableForDates(int propertyId, DateTime startDate, DateTime endDate)
         {
-            var property = _context.Properties.Include(p => p.Bookings)
-                .FirstOrDefault(p => p.PropertyID == propertyId);
+            var property = _context.Properties.FirstOrDefault(p => p.PropertyID == propertyId);
 
-            if (property == null) return false;  // Property not found
+            var bookings = _context.Bookings.Where(b => b.PropertyID == propertyId);
+
+            if (property == null) return false; // Property not found
 
             // Check if any existing booking overlaps with the requested dates
-            var hasConflictingBooking = property.Bookings.Any(b => b.CheckInDate <= endDate && b.CheckOutDate >= startDate);
+            var hasConflictingBooking = bookings.Any(b => b.CheckInDate <= endDate && b.CheckOutDate >= startDate);
 
             // Ensure AvailableRooms is sufficient
             return !hasConflictingBooking && property.AvaialableRooms >= 1;
         }
-
     }
 }

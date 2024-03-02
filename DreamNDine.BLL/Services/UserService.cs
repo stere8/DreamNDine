@@ -40,7 +40,7 @@ namespace DreamNDine.BLL.Services
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
             // 2. If user found, verify password
-            if (user != null && VerifyPasswordHash(password, user.Password))
+            if (user != null && VerifyPasswordHash(password, user))
             {
                 return user;
             }
@@ -66,17 +66,16 @@ namespace DreamNDine.BLL.Services
             var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
             return user?.Role == Role.Admin;
         }
-
-
+      
         public string HashPassword(string password)
         {
             // Install BCrypt.Net-Next NuGet Package
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        public bool VerifyPasswordHash(string password, string passwordHash)
+        public bool VerifyPasswordHash(string password, User user)
         {
-            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+            return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
 
         public User GetUserProfile(int userId)

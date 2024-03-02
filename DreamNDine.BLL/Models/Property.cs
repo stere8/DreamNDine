@@ -13,7 +13,9 @@ namespace DreamNDine.BLL.Models
         public string Description { get; set; }
 
         [Required]
-        public string Location { get; set; }
+        public string City { get; set; }
+
+        public string? Address { get; set; }
 
         [Required]
         public decimal Price { get; set; }
@@ -22,10 +24,6 @@ namespace DreamNDine.BLL.Models
         public int AvaialableRooms { get; set; }
 
         public int OwnerID { get; set; }
-        public User Owner { get; set; } // Navigation Property
-
-        public ICollection<string> PropertyPhotos { get; set; }
-        public ICollection<Booking> Bookings { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public string MainPic { get; set; }
     }
 }

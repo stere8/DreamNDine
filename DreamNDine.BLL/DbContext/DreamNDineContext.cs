@@ -11,6 +11,9 @@ namespace DreamNDine.BLL.DbContext
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<AdminLog> AdminLogs { get; set; }
+        public DreamNDineContext(DbContextOptions<DreamNDineContext> options)
+            : base(options)
+        { }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

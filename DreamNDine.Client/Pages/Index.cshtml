@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section class="property-listings">
+	<div class="container">
+		<h2>Explore Our Featured Properties</h2> 
+		<div class="property-grid">
+			@foreach (var property in Model.Properties)
+			{
+				<div class="property-card">
+					<img src="@property.MainPic" alt="@property.PropertyName" class="property-image" /> 
+					<div class="property-info">
+						<h3>@property.PropertyName</h3>
+						<p class="city">@property.City</p>
+						<p class="price">@property.Price <span class="per-night">(per night)</span></p>
+						<a href="#" class="view-details-btn">View Details</a>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
