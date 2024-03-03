@@ -25,33 +25,33 @@ namespace DreamNDine.Api.Controllers
 
         // GET: api/Property
         [HttpGet]
-        public IEnumerable<PropertyViewModel> GetAllProperties()
+        public IEnumerable<PropertiesViewModel> GetAllProperties()
         {
             Console.WriteLine("GetAllProperties");
             return _housingService.GetAllProperties()
-                                  .Select(p => _mapper.Map<PropertyViewModel>(p));
+                                  .Select(p => _mapper.Map<PropertiesViewModel>(p));
         }
 
         // GET: api/Property/5
         [HttpGet("{id}")]
-        public ActionResult<PropertyViewModel> GetPropertyById(int id)
+        public ActionResult<PropertiesViewModel> GetPropertyById(int id)
         {
             var property = _housingService.GetPropertyById(id);
             if (property == null) return NotFound();
-            return _mapper.Map<PropertyViewModel>(property);
+            return _mapper.Map<PropertiesViewModel>(property);
         }
 
         // GET: api/Property/search?city=...&startDate=...&endDate=...
         [HttpGet("search")]
-        public IEnumerable<PropertyViewModel> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
+        public IEnumerable<PropertiesViewModel> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
         {
             return _housingService.GetPropertiesByCityAndTime(city, startDate, endDate)
-                                  .Select(p => _mapper.Map<PropertyViewModel>(p));
+                                  .Select(p => _mapper.Map<PropertiesViewModel>(p));
         }
 
         // POST: api/Property
         [HttpPost]
-        public ActionResult<PropertyViewModel> CreateProperty(PropertyRequest propertyRequest)
+        public ActionResult<PropertiesViewModel> CreateProperty(PropertyRequest propertyRequest)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -62,7 +62,7 @@ namespace DreamNDine.Api.Controllers
 
             var createdProperty = _housingService.AddProperty(property);
 
-            return CreatedAtAction("GetPropertyById", new { id = createdProperty.PropertyID }, _mapper.Map<PropertyViewModel>(createdProperty));
+            return CreatedAtAction("GetPropertyById", new { id = createdProperty.PropertyID }, _mapper.Map<PropertiesViewModel>(createdProperty));
         }
 
         // PUT: api/Property/5

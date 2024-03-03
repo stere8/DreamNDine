@@ -70,3 +70,40 @@ body {
     border-radius: 5px;
     text-decoration: none;
 }
+/* Introduction Styling */
+.intro-section {
+    text-align: center;
+    margin-bottom: 40px; /* Space below the intro  */
+}
+
+.intro-section h1 {
+    color: #333; /* Darker color for title */
+    font-family: 'Times New Roman', serif;
+    font-size: 2.5em; /* Larger heading */
+}
+
+.intro-section p {
+    color: #555; /* Softer text color */
+    font-size: 1.2em;
+}
+
+/* Search Form Styling */
+.search-form {
+    background-color: #fff; /* White background */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.search-form .form-group {
+    margin-bottom: 20px;
+}
+
+.search-form button[type="submit"] {
+    background-color: #008080; /* Emerald green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} 

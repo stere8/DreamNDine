@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DreamNDine.API\DreamNDine.API.csproj" />
     <ProjectReference Include="..\DreamNDine.BLL\DreamNDine.BLL.csproj" />
   </ItemGroup>
 

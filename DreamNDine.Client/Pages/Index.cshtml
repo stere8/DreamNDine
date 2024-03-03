@@ -4,23 +4,27 @@
     ViewData["Title"] = "Home page";
 }
 
-<section class="property-listings">
-	<div class="container">
-		<h2>Explore Our Featured Properties</h2> 
-		<div class="property-grid">
-			@foreach (var property in Model.Properties)
-			{
-				<div class="property-card">
-					<img src="@property.MainPic" alt="@property.PropertyName" class="property-image" /> 
-					<div class="property-info">
-						<h3>@property.PropertyName</h3>
-						<p class="city">@property.City</p>
-						<p class="price">@property.Price <span class="per-night">(per night)</span></p>
-						<a href="#" class="view-details-btn">View Details</a>
-					</div>
-				</div>
-			}
-		</div>
+<div class="intro-section">
+	<div class="intro-section">
+		<h1>Welcome to DreamNDine</h1>
+		<p>Find your ideal vacation rental with ease. Explore our curated properties, discover your perfect getaway, and experience the comfort and convenience of a home away from home.  Our commitment to quality ensures a trustworthy and reliable booking experience.</p>
 	</div>
-</section>
+</div>
+<div class="search-form">
+	<form asp-page="/PropertyView" method="get">
+		<div class="form-group">
+			<label for="location">Location:</label>
+			<input type="text" id="location" name="location" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="checkInDate">Check-In Date:</label>
+			<input type="date" id="checkInDate" name="checkInDate" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="checkOutDate">Check-Out Date:</label>
+			<input type="date" id="checkOutDate" name="checkOutDate" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
+</div>
 

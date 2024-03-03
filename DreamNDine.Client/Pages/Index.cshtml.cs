@@ -19,7 +19,7 @@ namespace DreamNDine.Client.Pages
 
         public void OnGet()
         {
-            Properties = _propertyService.GetAllProperties().ToList();
         }
+
     }
 }

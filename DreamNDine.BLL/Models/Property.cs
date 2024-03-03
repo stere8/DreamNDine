@@ -25,5 +25,6 @@ namespace DreamNDine.BLL.Models
 
         public int OwnerID { get; set; }
         public string MainPic { get; set; }
+        public string OtherPics { get; set; }
     }
 }

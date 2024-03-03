@@ -15,6 +15,7 @@ namespace DreamNDine.Client
             builder.Services.AddScoped<IHousingService, HousingService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddHttpClient();
 
             builder.Services.AddDbContext<DreamNDineContext>(options =>
                 options.UseSqlServer("Server=SILVERBACK\\SQLEXPRESS;Database=DreamNDine;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"));

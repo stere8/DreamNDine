@@ -7,88 +7,106 @@ using DreamNDine.BLL.Models;
 
 namespace DreamNDine.BLL.Services
 {
-    public class HousingService : IHousingService
-    {
-        private readonly DbContext.DreamNDineContext _context;
+	public class HousingService : IHousingService
+	{
+		private readonly DbContext.DreamNDineContext _context;
 
-        public HousingService(DbContext.DreamNDineContext context)
-        {
-            _context = context;
-        }
+		public HousingService(DbContext.DreamNDineContext context)
+		{
+			_context = context;
+		}
 
-        public IList<Property> GetAllProperties()
-        {
-            return _context.Properties.ToList();
-        }
+		public IList<Property> GetAllProperties()
+		{
+			return _context.Properties.ToList();
+		}
 
-        public Property AddProperty(Property property)
-        {
-            _context.Properties.Add(property);
-            _context.SaveChanges();
-            return property;
-        }
+		public Property AddProperty(Property property)
+		{
+			_context.Properties.Add(property);
+			_context.SaveChanges();
+			return property;
+		}
 
-        public Property EditProperty(Property property)
-        {
-            var propertyToEdit = _context.Properties.FirstOrDefault(p => p.PropertyID == property.PropertyID);
-            
-            if (propertyToEdit == null) return new Property();
-            propertyToEdit.City = property.City;
-            propertyToEdit.Price = property.Price;
-            propertyToEdit.Description = property.Description;
-            _context.SaveChanges();
+		public Property EditProperty(Property property)
+		{
+			var propertyToEdit = _context.Properties.FirstOrDefault(p => p.PropertyID == property.PropertyID);
 
-            return propertyToEdit;
-        }
+			if (propertyToEdit == null) return new Property();
+			propertyToEdit.City = property.City;
+			propertyToEdit.Price = property.Price;
+			propertyToEdit.Description = property.Description;
+			_context.SaveChanges();
 
-        public Property GetPropertyById(int id)
-        {
-            return _context.Properties.FirstOrDefault(p => p.PropertyID == id);
-        }
+			return propertyToEdit;
+		}
 
-        public List<Property> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
-        {
-            return _context.Properties
-                .Join(_context.Bookings,  // Join with Bookings
-                    p => p.PropertyID,   // Property foreign key
-                    b => b.PropertyID,   // Booking matching key
-                    (p, b) => new { Property = p, Booking = b }) // Result selector
-                .Where(pb => pb.Property.City == city &&
-                             pb.Booking.CheckOutDate < startDate ||
-                             pb.Booking.CheckInDate > endDate)
-                .Select(pb => pb.Property) // Select the Property
-                .ToList();
-        }
+		public Property GetPropertyById(int id)
+		{
+			return _context.Properties.FirstOrDefault(p => p.PropertyID == id);
+		}
 
-        public bool DeleteProperty(int id)
-        {
-            var property = _context.Properties.FirstOrDefault(p => p.PropertyID == id);
-            if (property == null) return false;
-            _context.Properties.Remove(property);
-            _context.SaveChanges();
-            return true;
-        }  
 
-        public decimal GetTotalCost(int propertyID, DateTime startDate, DateTime endDate)
-        {
-            var property = _context.Properties.FirstOrDefault(p => p.PropertyID == propertyID);
-            var totalCost = property.Price * (endDate - startDate).Days;
-            return totalCost;
-        }
+		public List<Property> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
+		{
+			// Step 1: Fetch properties by city
 
-        public int GetPropertyOwner(int id)
-        {
-            var property = _context.Properties
-                .Where(p => p.PropertyID == id)
-                .Select(p => p.OwnerID)
-                .FirstOrDefault();
+			var properties = _context.Properties.ToList();
+				
+			// Step 2: Calculate availability
+			var availableProperties = new List<Property>();
+			foreach (var property in properties)
+			{
+				var overlappingBookings = _context.Bookings
+					.Where(b => b.PropertyID == property.PropertyID &&
+					            (b.CheckInDate <= endDate && b.CheckOutDate >= startDate))
+					.ToList();
 
-            if (property == 0) // Default value for int, assuming 0 isn't a valid OwnerID 
-            {
-                throw new Exception($"Property with ID {id} not found");
-            }
+				int occupiedRooms = overlappingBookings.Count();// Calculate occupied rooms based on 'overlappingBookings' ...
 
-            return property;
-        }
-    }
+
+				if (property.AvaialableRooms - occupiedRooms > 0)
+				{
+					availableProperties.Add(property);
+				}
+			}
+
+			return availableProperties;
+		}
+
+
+
+
+
+		public bool DeleteProperty(int id)
+		{
+			var property = _context.Properties.FirstOrDefault(p => p.PropertyID == id);
+			if (property == null) return false;
+			_context.Properties.Remove(property);
+			_context.SaveChanges();
+			return true;
+		}
+
+		public decimal GetTotalCost(int propertyID, DateTime startDate, DateTime endDate)
+		{
+			var property = _context.Properties.FirstOrDefault(p => p.PropertyID == propertyID);
+			var totalCost = property.Price * (endDate - startDate).Days;
+			return totalCost;
+		}
+
+		public int GetPropertyOwner(int id)
+		{
+			var property = _context.Properties
+				.Where(p => p.PropertyID == id)
+				.Select(p => p.OwnerID)
+				.FirstOrDefault();
+
+			if (property == 0) // Default value for int, assuming 0 isn't a valid OwnerID 
+			{
+				throw new Exception($"Property with ID {id} not found");
+			}
+
+			return property;
+		}
+	}
 }
