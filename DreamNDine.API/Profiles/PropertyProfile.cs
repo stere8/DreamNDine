@@ -23,6 +23,6 @@ namespace DreamNDine.API.Profiles
 			// Mapping from PropertyUpdateRequest to Property
 			CreateMap<PropertyUpdateRequest, Property>()
 				.ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Location)); // Map 'Location' to 'City'
-		}
+        }
 	}
 }

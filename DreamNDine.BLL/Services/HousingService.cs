@@ -51,7 +51,7 @@ namespace DreamNDine.BLL.Services
 		{
 			// Step 1: Fetch properties by city
 
-			var properties = _context.Properties.ToList();
+			var properties = _context.Properties;
 				
 			// Step 2: Calculate availability
 			var availableProperties = new List<Property>();

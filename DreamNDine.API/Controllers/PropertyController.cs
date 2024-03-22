@@ -3,6 +3,7 @@ using DreamNDine.BLL.Models;
 using DreamNDine.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using DreamNDine.API.Models;
 
 namespace DreamNDine.Api.Controllers
 {
@@ -41,11 +42,11 @@ namespace DreamNDine.Api.Controllers
             return _mapper.Map<PropertiesViewModel>(property);
         }
 
-        // GET: api/Property/search?city=...&startDate=...&endDate=...
-        [HttpGet("search")]
-        public IEnumerable<PropertiesViewModel> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
+        // POST: api/Property/search/
+        [HttpPost("search")]
+        public IEnumerable<PropertiesViewModel> GetPropertiesByCityAndTime(PropertySearchModel searchModel)
         {
-            return _housingService.GetPropertiesByCityAndTime(city, startDate, endDate)
+            return _housingService.GetPropertiesByCityAndTime(searchModel.location, searchModel.checkInDate, searchModel.checkOutDate)
                                   .Select(p => _mapper.Map<PropertiesViewModel>(p));
         }
 

@@ -17,8 +17,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IHousingService, HousingService>();
 builder.Services.AddTransient<IBookingService, BookingService>();
 builder.Services.AddTransient<IUserService, UserService>();
+
 builder.Services.AddDbContext<DreamNDineContext>(options =>
-	options.UseSqlServer("Server=SILVERBACK\\SQLEXPRESS;Database=DreamNDine;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DnDCnStr")));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(typeof(PropertyProfile));
 //builder.Services.AddCors(options =>
