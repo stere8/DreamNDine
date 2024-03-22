@@ -1,0 +1,22 @@
+﻿@page
+@model PropertyListViewModel
+@{
+	ViewData["Title"] = "View Listings";
+}
+
+<div class="filters-section">
+</div>
+<div class="property-grid">
+	@foreach (var property in Model.Properties)
+	{
+		<h1>Available Properties</h1>
+
+		<div class="property-card">
+			<img src="@property.PropertyPhotos.FirstOrDefault()" alt="@property.PropertyName" class="property-image" /> 
+			<div class="property-info">
+				<h3>@property.PropertyName</h3>
+				<p class="city">@property.City</p>
+			</div>
+		</div>
+	}
+</div>
