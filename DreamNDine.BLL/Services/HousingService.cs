@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DreamNDine.BLL.Models;
+﻿using DreamNDine.BLL.Models;
 
 namespace DreamNDine.BLL.Services
 {
@@ -16,12 +11,12 @@ namespace DreamNDine.BLL.Services
 			_context = context;
 		}
 
-		public IList<Property> GetAllProperties()
+		public IList<Property?> GetAllProperties()
 		{
 			return _context.Properties.ToList();
 		}
 
-		public Property AddProperty(Property property)
+		public Property? AddProperty(Property? property)
 		{
 			_context.Properties.Add(property);
 			_context.SaveChanges();
@@ -41,20 +36,20 @@ namespace DreamNDine.BLL.Services
 			return propertyToEdit;
 		}
 
-		public Property GetPropertyById(int id)
+		public Property? GetPropertyById(int id)
 		{
 			return _context.Properties.FirstOrDefault(p => p.PropertyID == id);
 		}
 
 
-		public List<Property> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
+		public List<Property?> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
 		{
 			// Step 1: Fetch properties by city
 
 			var properties = _context.Properties;
 				
 			// Step 2: Calculate availability
-			var availableProperties = new List<Property>();
+			var availableProperties = new List<Property?>();
 			foreach (var property in properties)
 			{
 				var overlappingBookings = _context.Bookings
