@@ -20,7 +20,7 @@ namespace DreamNDine.Client.Pages
             _propertyService = housingService;
         }
 
-        public List<Property> Properties { get; set; }
+        public List<Properties> Properties { get; set; }
 
         public async Task<IActionResult> OnPost(PropertySearchModel searchData)
         {
@@ -40,10 +40,9 @@ namespace DreamNDine.Client.Pages
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var properties = JsonSerializer.Deserialize<List<Property>>(responseString); 
+                    HttpContext.Session.SetString("properties", responseString);
 
-                    TempData["searchResults"] = properties; // Assuming you have logic to read these in PropertyListView 
-                    return RedirectToPage("/PropertyListView"); 
+                    return RedirectToPage("/PropertyListView");
                 }
             }
 

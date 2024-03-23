@@ -12,7 +12,6 @@
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
       "launchUrl": "api",
       "applicationUrl": "http://127.0.0.1:1031",
       "environmentVariables": {
@@ -22,7 +21,6 @@
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
       "launchUrl": "api",
       "applicationUrl": "https://127.0.0.1:1026",
       "environmentVariables": {

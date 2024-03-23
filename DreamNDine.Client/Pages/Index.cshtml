@@ -1,30 +1,107 @@
 ﻿@page
-@model IndexModel
+@model IndexModel 
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "DreamNDine";
 }
 
-<div class="intro-section">
-	<div class="intro-section">
-		<h1>Welcome to DreamNDine</h1>
-		<p>Find your ideal vacation rental with ease. Explore our curated properties, discover your perfect getaway, and experience the comfort and convenience of a home away from home.  Our commitment to quality ensures a trustworthy and reliable booking experience.</p>
-	</div>
-</div>
-<div class="search-form">
-<form asp-page="/" method="post"> 
-		<div class="form-group">
-			<label for="location">Location:</label>
-			<input type="text" id="location" name="location" class="form-control" />
-		</div>
-		<div class="form-group">
-			<label for="checkInDate">Check-In Date:</label>
-			<input type="date" id="checkInDate" name="checkInDate" class="form-control" />
-		</div>
-		<div class="form-group">
-			<label for="checkOutDate">Check-Out Date:</label>
-			<input type="date" id="checkOutDate" name="checkOutDate" class="form-control" />
-		</div>
-		<button type="submit" class="btn btn-primary">Search</button>
-	</form>
-</div>
+<header class="banner-image">
+    <div class="container text-center py-5 text-white">
+        <h1>DreamNDine: Where Breakfast Dreams Come True</h1>
+    </div>
+</header>
 
+<main class="container py-4">
+    <section class="intro-text">
+        <p>Welcome to DreamNDine, where mornings unfold with the gentle touch of sunrise and the promise of new beginnings. We're a haven of warmth and welcome, a sanctuary where laughter lingers in the air, conversations flow as freely as steaming tea, and the spirit finds a moment of tranquility.</p>
+    </section>
+    
+    <div class="search-form">
+        <form asp-page="/" method="post"> 
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="checkInDate">Check-In Date:</label>
+                <input type="date" id="checkInDate" name="checkInDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="checkOutDate">Check-Out Date:</label>
+                <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <section class="our-vision">
+        <h2 class="text-center">Our Vision</h2>
+        <p>At DreamNDine, we believe that breakfast is more than a meal—it’s a moment of magic. Whether you’re a weary traveler seeking solace or a food enthusiast craving culinary delights, our constellation of properties awaits. Here’s what makes us shine:</p>
+    </section>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <section class="features">
+        <h2 class="text-center">Why DreamNDine?</h2>
+        <div class="feature-container">
+            <div class="feature-item">
+                <h3><i class="material-icons">home</i> User-Registered Properties</h3>
+                <ul>
+                    <li>Showcase your unique property and culinary skills</li>
+                    <li>Reach a passionate community of breakfast lovers</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">verified_user</i> Vetting Process</h3>
+                <ul>
+                    <li>We ensure quality and authenticity for our customers</li>
+                    <li>Your passion for hospitality is our priority</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">search</i> Curated Listings</h3>
+                <ul>
+                    <li>Explore properties with distinct flavor profiles</li>
+                    <li>Find your perfect breakfast experience</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">search</i> Personalized Search</h3>
+                <ul>
+                    <li>Tailored recommendations based on your preferences</li>
+                    <li>Discover stays that match your unique needs</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">payment</i> Payment and Trust</h3>
+                <ul>
+                    <li>Secure transactions for peace of mind</li>
+                    <li>Funds protected with our escrow system</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">chat</i> Complaint Resolution</h3>
+                <ul>
+                    <li>Hands-on support when issues arise</li>
+                    <li>We're here to mediate and find solutions</li>
+                </ul>
+            </div>
+
+            <div class="feature-item">
+                <h3><i class="material-icons">feedback</i> Feedback Loop</h3>
+                <ul>
+                    <li>Your feedback shapes our platform</li>
+                    <li>We're committed to continuous improvement</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+
+</main>

@@ -8,7 +8,7 @@ namespace DreamNDine.BLL.Models
         public int LogID { get; set; }
 
         public int AdminID { get; set; }
-        public User Admin { get; set; } // Navigation property
+        public User Admin { get; set; } // Navigation properties
 
         public string Action { get; set; }
 

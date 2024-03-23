@@ -1,109 +1,149 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Color Palette */
 body {
-  margin-bottom: 60px;
+    background-image: url("/lib/img/wooden-floor.jpg"); /* Wooden floor background */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Fixed background */
+    background-color: #C19A6B; /* Mushroom Brown */
+    color: #333; /* Dark text for contrast */
 }
 
-.property-listings {
-    background-color: #f5f5f5; /* Soft gray background */
-    padding: 40px 0;
-    text-align: center;
+.navbar {
+    background-color: #000; /* Black */
+    color: #fff; /* White text */
 }
 
-.property-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
-    gap: 30px;
+.search-form, .feature-item {
+    background-color: #fff; /* White */
 }
 
-.property-card {
-    border: 1px solid #e0e0e0; /* Subtle border */
-    border-radius: 8px;
-    overflow: hidden;
+    .btn, .search-form button[type="submit"] {
+        background-color: #d32f2f; /* Red */
+        color: white;
+    }
+
+/* Fonts */
+body {
+    font-family: 'Poppins', sans-serif; /* Main font */
 }
 
-.property-image {
-    width: 100%;
-    height: 220px;
-    object-fit: cover; /* Nicely crop images */
+h1, h2, h3, .navbar-brand {
+    font-family: 'Amatic SC', cursive; /* Use sparingly */
 }
 
-.property-info {
-    padding: 20px;
+/* Style Enhancements */
+.container {
+    border-radius: 10px; /* Rounded corners for content areas */
 }
 
-.property-info h3 {
-    color: #333; /* Darker color for title */
-    font-family: 'Times New Roman', serif;
+.feature-item, .search-form, .btn {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
-.city, .price {
-    color: #555;
+/* Optional: Banner Image Gradient (adjust colors) */
+.banner-image {
+    background: linear-gradient(rgba(0,0,0, 0.4), rgba(0,0,0, 0.4)), url("~lib/img/dreamdine-banner.jpg");
 }
 
-.per-night {
-    font-size: 0.8em;
-}
-
-.view-details-btn {
-    background-color: #008080; /* Emerald green */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-}
-/* Introduction Styling */
-.intro-section {
-    text-align: center;
-    margin-bottom: 40px; /* Space below the intro  */
-}
-
-.intro-section h1 {
-    color: #333; /* Darker color for title */
-    font-family: 'Times New Roman', serif;
-    font-size: 2.5em; /* Larger heading */
-}
-
-.intro-section p {
-    color: #555; /* Softer text color */
-    font-size: 1.2em;
-}
-
-/* Search Form Styling */
+/* Overall Search Form Size */
 .search-form {
-    background-color: #fff; /* White background */
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Reduce padding for a smaller form */
+    max-width: 500px; /* Set a maximum width */
+    margin: 0 auto; /* Center the form */
 }
 
-.search-form .form-group {
-    margin-bottom: 20px;
+    /* Search Box Styling */
+    .search-form input[type="text"],
+    .search-form input[type="date"] {
+        width: 75%; /* Reduce input field width */
+        padding: 8px; /* Adjust padding if needed */
+        border-radius: 8px; /* Softer corners */
+    }
+
+/* Footer */
+.footer {
+    padding: 20px; /* Add padding for spacing */
+    text-align: center; /* Center-align content */
 }
 
-.search-form button[type="submit"] {
-    background-color: #008080; /* Emerald green */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-} 
+    .footer .dnd-logo {
+        height: 175px; /* Adjust height */
+        width: 300px; /* Adjust width */
+        border-radius: 50%; /* Creates a circle */
+        overflow: hidden; /* Hides excess image outside the circle */
+    }
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.feature-item, .search-form, .btn {
+    animation: fadeIn 1s ease-in-out; /* Fade in animation */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px; /* Add padding for smaller screens */
+    }
+}
+
+/* Additional Styling */
+/* Add your additional styling here */
+
+/* Feature Items in Two Columns */
+.feature-container {
+    display: flex; /* Use Flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to multiple lines if needed */
+    justify-content: center; /* Center items horizontally */
+    gap: 20px;
+}
+
+.feature-item {
+    flex: 0 0 45%; /* Set items to take up about 45% of width */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text within the feature items */
+}
+
+/* Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+    .feature-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .feature-item {
+        flex: 1 0 auto; /* Allow items to take up full width */
+    }
+}
+
+/* New Background (Example) */
+body {
+    background-image: url("light-gradient.jpg"); /* Replace with your desired image */
+    /* ... (Rest of your body styles) ... */
+}
+
+/* ... (Your existing CSS) ... */
+
+.navbar {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+}
+
+.navbar-brand {
+    max-height: 175px; /* Adjust height of the navbar-brand container */
+}
+
+.dnd-logo {
+    height: 175px; /* Set the logo height */
+    width: 175px; /* Set the logo width */
+    border-radius: 50%; /* Add this line for the round effect */
+    overflow: hidden; /* Hides excess image outside the container */
+}

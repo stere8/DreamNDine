@@ -7,16 +7,23 @@
 <div class="filters-section">
 </div>
 <div class="property-grid">
-	@foreach (var property in Model.Properties)
-	{
-		<h1>Available Properties</h1>
-
-		<div class="property-card">
-			<img src="@property.PropertyPhotos.FirstOrDefault()" alt="@property.PropertyName" class="property-image" /> 
-			<div class="property-info">
-				<h3>@property.PropertyName</h3>
-				<p class="city">@property.City</p>
-			</div>
-		</div>
-	}
+    @if (Model.Properties.Any())
+    {
+        <h1>Available Properties</h1>
+        @foreach (var property in Model.Properties)
+        {
+            <div class="property-card">
+                <img src="@Url.Content(property.MainPic)" alt="@property.PropertyName" class="property-image"/>
+                <div class="property-info">
+                    <h3>@property.PropertyName</h3>
+                    <p class="city">@property.City</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h1>No available properties</h1>
+    }
+    
 </div>

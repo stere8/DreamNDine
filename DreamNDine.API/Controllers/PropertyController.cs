@@ -24,7 +24,7 @@ namespace DreamNDine.Api.Controllers
 
 
 
-        // GET: api/Property
+        // GET: api/Properties
         [HttpGet]
         public IEnumerable<PropertiesViewModel> GetAllProperties()
         {
@@ -33,7 +33,7 @@ namespace DreamNDine.Api.Controllers
                                   .Select(p => _mapper.Map<PropertiesViewModel>(p));
         }
 
-        // GET: api/Property/5
+        // GET: api/Properties/5
         [HttpGet("{id}")]
         public ActionResult<PropertiesViewModel> GetPropertyById(int id)
         {
@@ -42,7 +42,7 @@ namespace DreamNDine.Api.Controllers
             return _mapper.Map<PropertiesViewModel>(property);
         }
 
-        // POST: api/Property/search/
+        // POST: api/Properties/search/
         [HttpPost("search")]
         public IEnumerable<PropertiesViewModel> GetPropertiesByCityAndTime(PropertySearchModel searchModel)
         {
@@ -50,13 +50,13 @@ namespace DreamNDine.Api.Controllers
                                   .Select(p => _mapper.Map<PropertiesViewModel>(p));
         }
 
-        // POST: api/Property
+        // POST: api/Properties
         [HttpPost]
         public ActionResult<PropertiesViewModel> CreateProperty(PropertyRequest propertyRequest)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var property = _mapper.Map<Property>(propertyRequest);
+            var property = _mapper.Map<Properties>(propertyRequest);
 
             // Assuming authentication sets the owner ID
             property.OwnerID = GetCurrentUserId();
@@ -66,13 +66,13 @@ namespace DreamNDine.Api.Controllers
             return CreatedAtAction("GetPropertyById", new { id = createdProperty.PropertyID }, _mapper.Map<PropertiesViewModel>(createdProperty));
         }
 
-        // PUT: api/Property/5
+        // PUT: api/Properties/5
         [HttpPut("{id}")]
         public IActionResult UpdateProperty(int id, PropertyUpdateRequest propertyUpdateRequest)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            // Ensure the user is authorized to update this property
+            // Ensure the user is authorized to update this properties
             if (GetCurrentUserId() != _housingService.GetPropertyOwner(id))
             {
                 return Unauthorized();
@@ -93,7 +93,7 @@ namespace DreamNDine.Api.Controllers
             }
         }
 
-        // DELETE: api/Property/5
+        // DELETE: api/Properties/5
         [HttpDelete("{id}")]
         public IActionResult DeleteProperty(int id)
         {

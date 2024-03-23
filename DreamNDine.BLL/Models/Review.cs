@@ -8,7 +8,7 @@ namespace DreamNDine.BLL.Models
         public int ReviewID { get; set; }
 
         public int PropertyID { get; set; }
-        public Property Property { get; set; }
+        public Properties Properties { get; set; }
 
         public int GuestID { get; set; }
         public User Guest { get; set; }

@@ -61,7 +61,7 @@ namespace DreamNDine.BLL.Services
 
             var bookings = _context.Bookings.Where(b => b.PropertyID == propertyId);
 
-            if (property == null) return false; // Property not found
+            if (property == null) return false; // Properties not found
 
             // Check if any existing booking overlaps with the requested dates
             var hasConflictingBooking = bookings.Any(b => b.CheckInDate <= endDate && b.CheckOutDate >= startDate);

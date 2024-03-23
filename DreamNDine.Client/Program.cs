@@ -1,3 +1,4 @@
+using DreamNDine.API.Profiles;
 using DreamNDine.BLL.DbContext;
 using DreamNDine.BLL.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,9 @@ namespace DreamNDine.Client
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddHttpClient();
-
-            builder.Services.AddDbContext<DreamNDineContext>(options =>
+            builder.Services.AddSession();
+            builder.Services.AddAutoMapper(typeof(PropertyProfile));
+			builder.Services.AddDbContext<DreamNDineContext>(options =>
                 options.UseSqlServer("Server=SILVERBACK\\SQLEXPRESS;Database=DreamNDine;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"));
 
             var app = builder.Build();
@@ -32,7 +34,7 @@ namespace DreamNDine.Client
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

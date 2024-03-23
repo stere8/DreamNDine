@@ -11,53 +11,53 @@ namespace DreamNDine.BLL.Services
 			_context = context;
 		}
 
-		public IList<Property?> GetAllProperties()
+		public IList<Properties?> GetAllProperties()
 		{
 			return _context.Properties.ToList();
 		}
 
-		public Property? AddProperty(Property? property)
+		public Properties? AddProperty(Properties? property)
 		{
 			_context.Properties.Add(property);
 			_context.SaveChanges();
 			return property;
 		}
 
-		public Property EditProperty(Property property)
+		public Properties EditProperty(Properties properties)
 		{
-			var propertyToEdit = _context.Properties.FirstOrDefault(p => p.PropertyID == property.PropertyID);
+			var propertyToEdit = _context.Properties.FirstOrDefault(p => p.PropertyID == properties.PropertyID);
 
-			if (propertyToEdit == null) return new Property();
-			propertyToEdit.City = property.City;
-			propertyToEdit.Price = property.Price;
-			propertyToEdit.Description = property.Description;
+			if (propertyToEdit == null) return new Properties();
+			propertyToEdit.City = properties.City;
+			propertyToEdit.Price = properties.Price;
+			propertyToEdit.Description = properties.Description;
 			_context.SaveChanges();
 
 			return propertyToEdit;
 		}
 
-		public Property? GetPropertyById(int id)
+		public Properties? GetPropertyById(int id)
 		{
 			return _context.Properties.FirstOrDefault(p => p.PropertyID == id);
 		}
 
 
-		public List<Property?> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
+		public List<Properties?> GetPropertiesByCityAndTime(string city, DateTime startDate, DateTime endDate)
 		{
-			// Step 1: Fetch properties by city
-
-			var properties = _context.Properties;
+            // Step 1: Fetch properties by city
+			city = city.ToLower();
+            var properties = _context.Properties.Where(p => p.Address.Contains(city)|| p.City.Contains(city)|| p.PropertyName.Contains(city)).ToList();
 				
 			// Step 2: Calculate availability
-			var availableProperties = new List<Property?>();
+			var availableProperties = new List<Properties?>();
 			foreach (var property in properties)
 			{
-				var overlappingBookings = _context.Bookings
-					.Where(b => b.PropertyID == property.PropertyID &&
-					            (b.CheckInDate <= endDate && b.CheckOutDate >= startDate))
-					.ToList();
+                List<Booking> overlappingBookings = _context.Bookings
+                    .Where(b => b.PropertyID == property.PropertyID &&
+                                (b.CheckInDate <= endDate && b.CheckOutDate >= startDate))
+                    .ToList() ?? new List<Booking>();
 
-				int occupiedRooms = overlappingBookings.Count();// Calculate occupied rooms based on 'overlappingBookings' ...
+                int occupiedRooms = overlappingBookings.Count();// Calculate occupied rooms based on 'overlappingBookings' ...
 
 
 				if (property.AvaialableRooms - occupiedRooms > 0)
@@ -98,7 +98,7 @@ namespace DreamNDine.BLL.Services
 
 			if (property == 0) // Default value for int, assuming 0 isn't a valid OwnerID 
 			{
-				throw new Exception($"Property with ID {id} not found");
+				throw new Exception($"Properties with ID {id} not found");
 			}
 
 			return property;

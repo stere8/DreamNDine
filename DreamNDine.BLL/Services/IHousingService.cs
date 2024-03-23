@@ -9,12 +9,12 @@ namespace DreamNDine.BLL.Services
 {
     public interface IHousingService
     {
-        IList<Property?> GetAllProperties();
-        Property? AddProperty(Property? property);
-        Property EditProperty(Property property);
-        Property? GetPropertyById(int id);
+        IList<Properties?> GetAllProperties();
+        Properties? AddProperty(Properties? property);
+        Properties EditProperty(Properties properties);
+        Properties? GetPropertyById(int id);
         bool DeleteProperty(int id);
-        List<Property?> GetPropertiesByCityAndTime(string city,DateTime startDate, DateTime endDate);
+        List<Properties?> GetPropertiesByCityAndTime(string city,DateTime startDate, DateTime endDate);
         decimal GetTotalCost(int propertyID, DateTime startDate, DateTime endDate);
         int GetPropertyOwner(int id);
     }

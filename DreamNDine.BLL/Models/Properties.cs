@@ -2,7 +2,7 @@
 
 namespace DreamNDine.BLL.Models
 {
-    public class Property
+    public class Properties
     {
         [Key]
         public int PropertyID { get; set; }
@@ -25,6 +25,6 @@ namespace DreamNDine.BLL.Models
 
         public int OwnerID { get; set; }
         public string MainPic { get; set; }
-        public string OtherPics { get; set; }
+        public string? OtherPics { get; set; }
     }
 }

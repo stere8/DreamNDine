@@ -10,6 +10,7 @@ public class PropertiesViewModel
     public string DisplayPrice { get; set; }
     public int AvaialableRooms { get; set; }
     public decimal Price { get; set; }
+    public string MainPic { get; set; }
     public List<string> PropertyPhotos { get; set; }
     public bool IsAvailable { get; set; }
     public User Owner { get; set; }

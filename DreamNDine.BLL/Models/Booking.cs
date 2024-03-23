@@ -8,7 +8,6 @@ namespace DreamNDine.BLL.Models
         public int BookingID { get; set; }
 
         public int PropertyID { get; set; }
-        public Property Property { get; set; }
 
         public int GuestID { get; set; }
 
@@ -18,7 +17,7 @@ namespace DreamNDine.BLL.Models
         [Required]
         public DateTime CheckOutDate { get; set; }
 
-        public decimal TotalCost { get; set; }
+        public decimal TotalPrice { get; set; }
 
         [Required]
         public PaymentStatus PaymentStatus { get; set; }
